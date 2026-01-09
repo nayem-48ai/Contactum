@@ -35,33 +35,27 @@ def vcf_to_text(vcf_content):
     for n, p in zip(names, phones):
         result.append(f"Name: {n.strip()} | Phone: {p.strip()}")
     return "\n".join(result)
-# ৩. read-vcf রাউটটি যোগ , ফলে contact read করবে।
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/convert', methods=['POST'])
-def convert():
-    data = request.form.get('text', '') # ফর্ম ডেটা হিসেবে নেওয়া
-    vcf_data = text_to_vcf(data)
-    proxy_file = io.BytesIO()
-    proxy_file.write(vcf_data.encode('utf-8'))
-    proxy_file.seek(0)
-    return send_file(proxy_file, mimetype="text/vcard", as_attachment=True, download_name="contact.vcf")
-
-@app.route('/read-vcf', methods=['POST'])
-def read_vcf():
-    file = request.files.get('vcf_file')
-    if file:
-        content = file.read().decode('utf-8', errors='ignore')
-        extracted_data = vcf_to_text(content)
-        return f"<h3>Extracted Contacts:</h3><pre>{extracted_data}</pre><a href='/'>Back</a>"
-    return "No file uploaded"
 
 @app.route('/')
 def home():
     return "VCF Converter API is Running!"
-
+@app.route('/read-vcf', methods=['POST'])
+def read_vcf_route():
+    if 'file' not in request.files:
+        return "No file uploaded"
+    file = request.files['file']
+    content = file.read().decode('utf-8', errors='ignore')
+    
+    # রিভার্স লজিক
+    names = re.findall(r'N:(.*?);;;', content)
+    phones = re.findall(r'TEL;.*?[:](.*?)\n', content)
+    
+    result_list = []
+    for n, p in zip(names, phones):
+        result_list.append({"name": n.strip(), "phone": p.strip()})
+    
+    return jsonify(result_list) # এটি ব্রাউজারে একটি সুন্দর লিস্ট দেখাবে
+    
 @app.route('/convert', methods=['POST'])
 def convert():
     data = request.json.get('text', '')
