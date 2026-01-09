@@ -4,11 +4,8 @@
     {
       "src": "api/index.py",
       "use": "@vercel/python"
-    },
-    {
-      "src": "public/**",
-      "use": "@vercel/static-build"
     }
+    // "public/**" এর জন্য আলাদা "build" সেকশন দরকার নেই যদি এটি শুধু স্ট্যাটিক ফাইল সার্ভ করে
   ],
   "routes": [
     {
@@ -17,7 +14,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/public/$1" // এটি public ফোল্ডারের ফাইলগুলোকে রুট পাথে সার্ভ করবে
     }
   ]
 }
