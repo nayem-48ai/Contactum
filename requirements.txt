@@ -1,2 +1,1 @@
-# requirements.txt
-python-telegram-bot==20.X.X 
+python-telegram-bot==20.8
