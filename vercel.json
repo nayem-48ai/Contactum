@@ -5,7 +5,6 @@
       "src": "api/index.py",
       "use": "@vercel/python"
     }
-    // "public/**" এর জন্য আলাদা "build" সেকশন দরকার নেই যদি এটি শুধু স্ট্যাটিক ফাইল সার্ভ করে
   ],
   "routes": [
     {
