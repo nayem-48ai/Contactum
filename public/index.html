@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactum - VCF Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Contactum - VCF কনভার্টার</h1>
+        <p>আপনার টেক্সট থেকে VCF তৈরি করুন অথবা VCF থেকে কন্টাক্ট ইনফো পড়ুন।</p>
+
+        <section class="section">
+            <h2>টেক্সট থেকে VCF তৈরি করুন</h2>
+            <textarea id="textInput" rows="10" placeholder="প্রতি লাইনে একটি করে কন্টাক্ট লিখুন।&#10;যেমন:&#10;রহিম 017xxxxxxxx&#10;করিম 018xxxxxxxx"></textarea>
+            <button id="createVcfBtn">VCF তৈরি করুন</button>
+            <a id="downloadLink" download="contacts.vcf" style="display: none;">ডাউনলোড VCF</a>
+        </section>
+
+        <section class="section">
+            <h2>VCF থেকে কন্টাক্ট পড়ুন</h2>
+            <input type="file" id="vcfFileInput" accept=".vcf">
+            <button id="readVcfBtn">VCF পড়ুন</button>
+            <div id="vcfOutput" class="output-box" style="display: none;">
+                <h3>পঠিত কন্টাক্টসমূহ:</h3>
+                <pre id="vcfContent"></pre>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>আমাদের টেলিগ্রাম বট ব্যবহার করুন: <a href="https://t.me/YOUR_BOT_USERNAME" target="_blank">@YOUR_BOT_USERNAME</a></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
